@@ -1,12 +1,10 @@
 Steps:
--accesso acconsentito grazie al port uguale. FATTO
 -salvare ID e IP in un file o directory e il primo prende il ruolo del coordinatore.
--se la porta/IP e' sbagliata, pop up a message che dice che e' sbagliata
--aggiungere ID nella combobox
--settare il refresh che mette le persone online
--settare il bottono chat quando hai selezionato una persona della combobox
--se clicchi a te stesso non deve andare
--creare classe che va a prendere l'IP che si vuole chattare e vedere se c'e' nel server
--se non c'e' nel server, mess "fai refresh"
 -la chat deve essere memorizzata da qualche parte e ogni mess deve avere l'orario dell'invio
 -l'utente puo' uscire e il coordinatore deve chiedere un refresh a tutti
+-tasto clean per pulire la chat
+-aggiungi pulsante disconnect del server
+-aggiungere nome della persona a cui parli sopra
+-aggiungere le scolbar
+-cambiare le scritte: variabili, commenti, error messages.
+-andate in pace
