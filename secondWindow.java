@@ -263,11 +263,11 @@ public class secondWindow extends JFrame {
 
 		frame.setVisible(true);
 		
-		JButton btnClearChat = new JButton("CLEAR");
-		btnClearChat.setFont(new Font("Verdana Pro", Font.BOLD, 11));
-		btnClearChat.setBackground(Color.LIGHT_GRAY);
-		btnClearChat.setBounds(344, 26, 80, 30);
-		frame.getContentPane().add(btnClearChat);
+		JButton btnCleanChat = new JButton("CLEAN");
+		btnCleanChat.setFont(new Font("Verdana Pro", Font.BOLD, 11));
+		btnCleanChat.setBackground(Color.LIGHT_GRAY);
+		btnCleanChat.setBounds(344, 26, 80, 30);
+		frame.getContentPane().add(btnCleanChat);
 		
 		lblLogo_2 = new JLabel("Chat with Us!");
 		lblLogo_2.setHorizontalAlignment(SwingConstants.CENTER);
