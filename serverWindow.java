@@ -19,6 +19,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class serverWindow {
 
@@ -33,6 +40,10 @@ public class serverWindow {
 	private static Set<String> activeUserSet = new HashSet<>(); // this set keeps track of all the active users 
 	private DefaultListModel<String> activeCList = new DefaultListModel<String>(); // keeps list of active users for display on UI
 	private DefaultListModel<String> allCList = new DefaultListModel<String>(); // keeps list of all users for display on UI
+	private JScrollPane scrollPane_DisplayServer;
+	private JScrollPane scrollPane_ClientServerList;
+	private JScrollPane scrollPane_AllClientServerList;
+	private JLabel lblNewLabel;
 
 
 	/**
@@ -60,7 +71,7 @@ public class serverWindow {
 			serverSocket = new ServerSocket(port);  // create a socket for server
 			txtrDisplayServer.append("Server is running...\n");
 			txtrDisplayServer.append("Server Port Number: " + port + "\n"); // print messages to server message board
-			txtrDisplayServer.append("Waiting for the clients...\n");
+			txtrDisplayServer.append("Waiting for Clients...\n");
 			new ClientAccept().start(); // this will create a thread for client
 		} catch (Exception e) {
 			System.out.println("errori server nel serverview");
@@ -87,7 +98,7 @@ public class serverWindow {
 							allCList.addElement(idClient);
 						OnlineClientsServerList.setModel(activeCList); // show the active and allUser List to the swing app in JList
 						AllClientsServerList.setModel(allCList);
-						txtrDisplayServer.append("Client " + idClient + " Connected...\n"); // print message on server that new client has been connected.
+						txtrDisplayServer.append("Client " + idClient + " connected...\n"); // print message on server that new client has been connected.
 						new MsgRead(clientSocket, idClient).start(); // create a thread to read messages
 						new PrepareCLientList().start(); //create a thread to update all the active clients
 					}
@@ -124,7 +135,7 @@ public class serverWindow {
 							try {
 								if (activeUserSet.contains(usr)) { // check again if user is active then send the message
 									new DataOutputStream(((Socket) allUsersList.get(usr)).getOutputStream())
-											.writeUTF("< " + Id + " >" + msgList[2]); // put message in output stream
+											.writeUTF(Id + ": " + msgList[2]); // put message in output stream
 								}
 							} catch (Exception e) { // throw exceptions
 								e.printStackTrace();
@@ -139,11 +150,8 @@ public class serverWindow {
 								try {
 									if (activeUserSet.contains(idName)) { // if client is active then send message through output stream
 										new DataOutputStream(((Socket) allUsersList.get(idName)).getOutputStream())
-												.writeUTF("< " + Id + " >" + msgList[1]);
-									} else {
-										//if user is not active then notify the sender about the disconnected client
-										new DataOutputStream(socket.getOutputStream())
-												.writeUTF("Message couldn't be delivered to user " + idName + " because it is disconnected.\n");
+												.writeUTF(Id + ": " + msgList[1]);
+									
 									}
 								} catch (Exception e) {
 									System.out.println("errori server nel run");
@@ -152,8 +160,8 @@ public class serverWindow {
 							}
 						}
 					} else if (msgList[0].equalsIgnoreCase("exit")) { // if a client's process is killed then notify other clients
-						activeUserSet.remove(Id); // remove that client from active usre set
-						txtrDisplayServer.append(Id + " disconnected....\n"); // print message on server message board
+						activeUserSet.remove(Id); // remove that client from active user set
+						txtrDisplayServer.append("Client " + Id + " disconnected...\n"); // print message on server message board
 
 						new PrepareCLientList().start(); // update the active and all user list on UI
 
@@ -226,21 +234,37 @@ public class serverWindow {
 		frmServer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServer.getContentPane().setLayout(null);
 		
+		scrollPane_DisplayServer = new JScrollPane();
+		scrollPane_DisplayServer.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_DisplayServer.setBounds(20, 53, 404, 346);
+		frmServer.getContentPane().add(scrollPane_DisplayServer);
+		
 		txtrDisplayServer = new JTextArea(); 
+		txtrDisplayServer.setWrapStyleWord(true);
+		txtrDisplayServer.setLineWrap(true);
+		scrollPane_DisplayServer.setViewportView(txtrDisplayServer);
 		txtrDisplayServer.setEditable(false);
 		txtrDisplayServer.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
 		txtrDisplayServer.setBackground(new Color(255, 255, 255));
-		txtrDisplayServer.setBounds(20, 43, 404, 346);
-		frmServer.getContentPane().add(txtrDisplayServer);
 		//txtrDisplayServer.setText("Server is running...\r\n");
 		
+		scrollPane_ClientServerList = new JScrollPane();
+		scrollPane_ClientServerList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_ClientServerList.setBounds(481, 65, 197, 135);
+		frmServer.getContentPane().add(scrollPane_ClientServerList);
+		
 		OnlineClientsServerList = new JList();
-		OnlineClientsServerList.setBounds(481, 66, 197, 135);
-		frmServer.getContentPane().add(OnlineClientsServerList);
+		OnlineClientsServerList.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
+		scrollPane_ClientServerList.setViewportView(OnlineClientsServerList);
+		
+		scrollPane_AllClientServerList = new JScrollPane();
+		scrollPane_AllClientServerList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_AllClientServerList.setBounds(481, 254, 197, 135);
+		frmServer.getContentPane().add(scrollPane_AllClientServerList);
 		
 		AllClientsServerList = new JList();
-		AllClientsServerList.setBounds(481, 254, 197, 135);
-		frmServer.getContentPane().add(AllClientsServerList);
+		scrollPane_AllClientServerList.setViewportView(AllClientsServerList);
+		AllClientsServerList.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
 		
 		JLabel lblOnlineClientsServerLabel = new JLabel("Online Clients");
 		lblOnlineClientsServerLabel.setForeground(Color.WHITE);
@@ -253,5 +277,24 @@ public class serverWindow {
 		lblAllClientsServerLabel.setFont(new Font("Verdana Pro", Font.BOLD, 13));
 		lblAllClientsServerLabel.setBounds(481, 232, 130, 14);
 		frmServer.getContentPane().add(lblAllClientsServerLabel);
+		
+		JButton btnDisconnectServer = new JButton("DISCONNECT");
+		btnDisconnectServer.setBackground(Color.LIGHT_GRAY);
+		btnDisconnectServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDisconnectServer.setFont(new Font("Verdana Pro", Font.BOLD, 11));
+		btnDisconnectServer.setBounds(306, 24, 118, 28);
+		frmServer.getContentPane().add(btnDisconnectServer);
+		
+		lblNewLabel = new JLabel("Chat with Us!");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Verdana Pro", Font.BOLD, 15));
+		lblNewLabel.setBounds(15, 15, 130, 26);
+		frmServer.getContentPane().add(lblNewLabel);
+		
+		
 	}
 }

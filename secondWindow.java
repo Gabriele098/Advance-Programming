@@ -22,6 +22,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 public class secondWindow extends JFrame {
 
@@ -38,6 +42,11 @@ public class secondWindow extends JFrame {
 	DataOutputStream out;
 	DefaultListModel<String> defMod;
 	String id, clientIds = "";
+	private JScrollPane scrollPane_OnlineClientsList;
+	private JScrollPane scrollPane_TextArea;
+	private JScrollPane scrollPane;
+	private JTextArea textTypingArea;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -118,21 +127,32 @@ public class secondWindow extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JScrollPane scrollPane_textDisplay = new JScrollPane();
+		scrollPane_textDisplay.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_textDisplay.setBounds(20, 56, 404, 298);
+		frame.getContentPane().add(scrollPane_textDisplay);
+		
 		textDisplay = new JTextArea();
+		textDisplay.setWrapStyleWord(true);
+		textDisplay.setLineWrap(true);
+		scrollPane_textDisplay.setViewportView(textDisplay);
 		textDisplay.setEditable(false);
 		textDisplay.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
-		textDisplay.setBounds(20, 57, 404, 298);
-		frame.getContentPane().add(textDisplay);
 		
-		TextArea = new JTextField();
-		TextArea.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
-		TextArea.setBounds(20, 365, 330, 30);
-		frame.getContentPane().add(TextArea);
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(20, 365, 330,30);
+		frame.getContentPane().add(scrollPane);
+		textTypingArea = new JTextArea();
+		textTypingArea.setWrapStyleWord(true);
+		scrollPane.setViewportView(textTypingArea);
+		textTypingArea.setLineWrap(true);
+		textTypingArea.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
 		
 		JButton btnSendButton = new JButton("SEND");
 		btnSendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String textAreaMessage = TextArea.getText(); // get the message from textbox
+				String textAreaMessage = textTypingArea.getText(); // get the message from textbox
 				if (textAreaMessage != null && !textAreaMessage.isEmpty()) {  // only if message is not empty then send it further otherwise do nothing
 					try {
 						String messageToBeSentToServer = "";
@@ -155,20 +175,20 @@ public class secondWindow extends JFrame {
 						}
 						if (cast.equalsIgnoreCase("multicast")) { 
 							if (flag == 1) { // for multicast check if no user was selected then prompt a message dialog
-								JOptionPane.showMessageDialog(frame, "No user selected");
+								JOptionPane.showMessageDialog(frame, "No client selected");
 							} else { // otherwise just send the message to the user
 								out.writeUTF(messageToBeSentToServer);
-								TextArea.setText("");
-								textDisplay.append("< You sent msg to " + clientIds + ">" + textAreaMessage + "\n"); //show the sent message to the sender's message board
+								textTypingArea.setText("");
+								textDisplay.append("Me - " + clientIds + ": " + textAreaMessage + "\n"); //show the sent message to the sender's message board
 							}
 						} else { // in case of broadcast
 							out.writeUTF(messageToBeSentToServer);
-							TextArea.setText("");
-							textDisplay.append("< You sent msg to All >" + textAreaMessage + "\n");
+							textTypingArea.setText("");
+							textDisplay.append("Me - All: " + textAreaMessage + "\n");
 						}
 						clientIds = ""; // clear the all the client ids 
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(frame, "User does not exist anymore."); // if user doesn't exist then show message
+						
 					}
 				}
 			
@@ -185,16 +205,14 @@ public class secondWindow extends JFrame {
 		lblOnlineClientsLabel.setBounds(478, 80, 130, 14);
 		frame.getContentPane().add(lblOnlineClientsLabel);
 		
-		JLabel lblClientName = new JLabel("#name of the client youre talking with");
-		lblClientName.setForeground(Color.WHITE);
-		lblClientName.setFont(new Font("Verdana Pro", Font.BOLD, 13));
-		lblClientName.setBounds(20, 28, 314, 24);
-		frame.getContentPane().add(lblClientName);
+		scrollPane_OnlineClientsList = new JScrollPane();
+		scrollPane_OnlineClientsList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_OnlineClientsList.setBounds(478, 106, 197, 248);
+		frame.getContentPane().add(scrollPane_OnlineClientsList);
 		
 		OnlineClientsList = new JList();
-		OnlineClientsList.setFont(new Font("Verdana Pro", Font.PLAIN, 13));
-		OnlineClientsList.setBounds(479, 105, 197, 248);
-		frame.getContentPane().add(OnlineClientsList);
+		scrollPane_OnlineClientsList.setViewportView(OnlineClientsList);
+		OnlineClientsList.setFont(new Font("Verdana", Font.PLAIN, 13));
 		
 		btnLogout = new JButton("LOGOUT");
 		btnLogout.addActionListener(new ActionListener() {
@@ -202,7 +220,7 @@ public class secondWindow extends JFrame {
 				try {
 					out.writeUTF("exit"); // closes the thread and show the message on server and client's message
 												// board
-					textDisplay.append("You are disconnected now.\n");
+					textDisplay.append("You are disconnected.\n");
 					frame.dispose(); // close the frame 
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -245,13 +263,20 @@ public class secondWindow extends JFrame {
 
 		frame.setVisible(true);
 		
-		JButton btnCloseChat = new JButton("CLOSE");
-		btnCloseChat.setFont(new Font("Verdana Pro", Font.BOLD, 11));
-		btnCloseChat.setBackground(Color.LIGHT_GRAY);
-		btnCloseChat.setBounds(344, 26, 80, 30);
-		frame.getContentPane().add(btnCloseChat);
+		JButton btnClearChat = new JButton("CLEAR");
+		btnClearChat.setFont(new Font("Verdana Pro", Font.BOLD, 11));
+		btnClearChat.setBackground(Color.LIGHT_GRAY);
+		btnClearChat.setBounds(344, 26, 80, 30);
+		frame.getContentPane().add(btnClearChat);
+		
+		lblNewLabel = new JLabel("Chat with Us!");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Verdana Pro", Font.BOLD, 15));
+		lblNewLabel.setBounds(15, 15, 130, 26);
+		frame.getContentPane().add(lblNewLabel);
+		
+		
 	}
-
-
 }
 

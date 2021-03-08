@@ -17,6 +17,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class firstWindow extends JFrame {
 	
@@ -25,7 +27,6 @@ public class firstWindow extends JFrame {
 	 */
 	
 	private JFrame frame;
-	private JTextField txtChatWithUs;
 	private JTextField txtInsertYourId;
 	private JTextField txtInsertYourIp;
 	private JTextField txtInsertYourPort;
@@ -68,15 +69,6 @@ public class firstWindow extends JFrame {
 		frame.setBounds(100, 100, 713, 467);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		txtChatWithUs = new JTextField();
-		txtChatWithUs.setBounds(262, 75, 168, 45);
-		txtChatWithUs.setFont(new Font("Verdana", Font.BOLD, 21));
-		txtChatWithUs.setForeground(Color.WHITE);
-		txtChatWithUs.setBackground(Color.DARK_GRAY);
-		txtChatWithUs.setText("Chat with Us!");
-		frame.getContentPane().add(txtChatWithUs);
-		txtChatWithUs.setColumns(10);
 		
 		txtInsertYourId = new JTextField();
 		
@@ -194,6 +186,12 @@ public class firstWindow extends JFrame {
 		joinButton.setBounds(286, 309, 127, 33);
 		frame.getContentPane().add(joinButton);
 		
+		JLabel lblNewLabel = new JLabel("Chat with Us!");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Verdana Pro", Font.BOLD, 22));
+		lblNewLabel.setBounds(264, 79, 168, 45);
+		frame.getContentPane().add(lblNewLabel);
+		
 	}
-	
 }
