@@ -43,7 +43,7 @@ public class serverWindow {
 	private JScrollPane scrollPane_DisplayServer;
 	private JScrollPane scrollPane_ClientServerList;
 	private JScrollPane scrollPane_AllClientServerList;
-	private JLabel lblNewLabel;
+	private JLabel lblLogo_Server;
 
 
 	/**
@@ -288,12 +288,12 @@ public class serverWindow {
 		btnDisconnectServer.setBounds(306, 24, 118, 28);
 		frmServer.getContentPane().add(btnDisconnectServer);
 		
-		lblNewLabel = new JLabel("Chat with Us!");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Verdana Pro", Font.BOLD, 15));
-		lblNewLabel.setBounds(15, 15, 130, 26);
-		frmServer.getContentPane().add(lblNewLabel);
+		lblLogo_Server = new JLabel("Chat with Us!");
+		lblLogo_Server.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo_Server.setForeground(Color.WHITE);
+		lblLogo_Server.setFont(new Font("Verdana Pro", Font.BOLD, 15));
+		lblLogo_Server.setBounds(15, 15, 130, 26);
+		frmServer.getContentPane().add(lblLogo_Server);
 		
 		
 	}

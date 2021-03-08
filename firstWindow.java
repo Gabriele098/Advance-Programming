@@ -186,12 +186,12 @@ public class firstWindow extends JFrame {
 		joinButton.setBounds(286, 309, 127, 33);
 		frame.getContentPane().add(joinButton);
 		
-		JLabel lblNewLabel = new JLabel("Chat with Us!");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Verdana Pro", Font.BOLD, 22));
-		lblNewLabel.setBounds(264, 79, 168, 45);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblLogo_1 = new JLabel("Chat with Us!");
+		lblLogo_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo_1.setForeground(Color.WHITE);
+		lblLogo_1.setFont(new Font("Verdana Pro", Font.BOLD, 22));
+		lblLogo_1.setBounds(264, 79, 168, 45);
+		frame.getContentPane().add(lblLogo_1);
 		
 	}
 }

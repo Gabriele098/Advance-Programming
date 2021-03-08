@@ -46,7 +46,7 @@ public class secondWindow extends JFrame {
 	private JScrollPane scrollPane_TextArea;
 	private JScrollPane scrollPane;
 	private JTextArea textTypingArea;
-	private JLabel lblNewLabel;
+	private JLabel lblLogo_2;
 
 	/**
 	 * Launch the application.
@@ -269,12 +269,12 @@ public class secondWindow extends JFrame {
 		btnClearChat.setBounds(344, 26, 80, 30);
 		frame.getContentPane().add(btnClearChat);
 		
-		lblNewLabel = new JLabel("Chat with Us!");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Verdana Pro", Font.BOLD, 15));
-		lblNewLabel.setBounds(15, 15, 130, 26);
-		frame.getContentPane().add(lblNewLabel);
+		lblLogo_2 = new JLabel("Chat with Us!");
+		lblLogo_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo_2.setForeground(Color.WHITE);
+		lblLogo_2.setFont(new Font("Verdana Pro", Font.BOLD, 15));
+		lblLogo_2.setBounds(15, 15, 130, 26);
+		frame.getContentPane().add(lblLogo_2);
 		
 		
 	}
