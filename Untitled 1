@@ -2,9 +2,6 @@ Steps:
 -salvare ID e IP in un file o directory e il primo prende il ruolo del coordinatore.
 -la chat deve essere memorizzata da qualche parte e ogni mess deve avere l'orario dell'invio
 -l'utente puo' uscire e il coordinatore passa al prossimo
--tasto clean per pulire la chat
--aggiungi pulsante disconnect del server
--aggiungere nome della persona a cui parli sopra
--aggiungere le scolbar
--cambiare le scritte: variabili, commenti, error messages.
--andate in pace
+-tasto clean per pulire la chat e disconnect server (tasti presenti manca action)
+-cambiare le scritte:commenti, error messages(ip e port).
+
