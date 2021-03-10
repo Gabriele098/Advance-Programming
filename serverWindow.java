@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JTextArea;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -44,6 +45,7 @@ public class serverWindow {
 	private JScrollPane scrollPane_ClientServerList;
 	private JScrollPane scrollPane_AllClientServerList;
 	private JLabel lblLogo_Server;
+	private JButton btnDisconnectServer;
 
 
 	/**
@@ -278,21 +280,23 @@ public class serverWindow {
 		lblAllClientsServerLabel.setBounds(481, 232, 130, 14);
 		frmServer.getContentPane().add(lblAllClientsServerLabel);
 		
-		JButton btnDisconnectServer = new JButton("DISCONNECT");
+		btnDisconnectServer = new JButton("DISCONNECT");
 		btnDisconnectServer.setBackground(Color.LIGHT_GRAY);
 		btnDisconnectServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				System.exit(0);
+				          
+				    }
 		});
 		btnDisconnectServer.setFont(new Font("Verdana Pro", Font.BOLD, 11));
-		btnDisconnectServer.setBounds(306, 24, 118, 28);
+		btnDisconnectServer.setBounds(306, 26, 118, 28);
 		frmServer.getContentPane().add(btnDisconnectServer);
 		
 		lblLogo_Server = new JLabel("Chat with Us!");
 		lblLogo_Server.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo_Server.setForeground(Color.WHITE);
 		lblLogo_Server.setFont(new Font("Verdana Pro", Font.BOLD, 15));
-		lblLogo_Server.setBounds(15, 15, 130, 26);
+		lblLogo_Server.setBounds(13, 15, 130, 26);
 		frmServer.getContentPane().add(lblLogo_Server);
 		
 		
