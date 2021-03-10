@@ -35,6 +35,7 @@ public class secondWindow extends JFrame {
 	private JList OnlineClientsList;
 	private JTextArea textDisplay;
 	private JButton btnLogout;
+	private JButton btnClearChat;
 	private JRadioButton rdbtnPrivate_msg;
 	private JRadioButton rdbtnBroadcast_msg;
 
@@ -263,17 +264,24 @@ public class secondWindow extends JFrame {
 
 		frame.setVisible(true);
 		
-		JButton btnCleanChat = new JButton("CLEAN");
-		btnCleanChat.setFont(new Font("Verdana Pro", Font.BOLD, 11));
-		btnCleanChat.setBackground(Color.LIGHT_GRAY);
-		btnCleanChat.setBounds(344, 26, 80, 30);
-		frame.getContentPane().add(btnCleanChat);
+		btnClearChat = new JButton("CLEAR");						//Clear Button 
+		btnClearChat.addActionListener(new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+					textDisplay.setText("");
+				
+				}
+			});
+		
+		btnClearChat.setFont(new Font("Verdana Pro", Font.BOLD, 11));
+		btnClearChat.setBackground(Color.LIGHT_GRAY);
+		btnClearChat.setBounds(344, 26, 80, 30);
+		frame.getContentPane().add(btnClearChat);
 		
 		lblLogo_2 = new JLabel("Chat with Us!");
 		lblLogo_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo_2.setForeground(Color.WHITE);
 		lblLogo_2.setFont(new Font("Verdana Pro", Font.BOLD, 15));
-		lblLogo_2.setBounds(15, 15, 130, 26);
+		lblLogo_2.setBounds(13, 19, 130, 26);
 		frame.getContentPane().add(lblLogo_2);
 		
 		
