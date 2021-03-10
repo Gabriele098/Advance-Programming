@@ -2,6 +2,6 @@ Steps:
 -salvare ID e IP in un file o directory e il primo prende il ruolo del coordinatore.
 -la chat deve essere memorizzata da qualche parte e ogni mess deve avere l'orario dell'invio
 -l'utente puo' uscire e il coordinatore passa al prossimo
--tasto clean per pulire la chat e disconnect server (tasti presenti manca action)
+-aggiungere error message quando utente prova ad inviare un broadcast message senza altri clienti online
 -cambiare le scritte:commenti, error messages(ip e port).
 
