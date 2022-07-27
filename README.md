@@ -1,6 +1,7 @@
 # Advance-Programming
 
 DESCRIPTION
+
 Implement a Graphical User Interface (GUI) or Command-Line Interface
 (CLI) based networked distributed system for a group-based client-server communication, which conforms
 with the following requirements. When a new member joins (connects), he/she has to provide following
@@ -25,6 +26,7 @@ to/by the member. Any member can quit by a simple ctrl-C command.
 
 
 HOW TO RUN
+
 -Run the serverWindow first
 -Then the firstWindow
 -And for other customers always run the firstWindow
